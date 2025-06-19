@@ -33,39 +33,3 @@ La app está hecha en Python usando `pyodbc` para conectar con SQL Server y `tki
    ```bash
    pip install pyodbc
 
-
-   estructura de la base de datos:
-
-CREATE TABLE personal (
-    idpersonal INT PRIMARY KEY IDENTITY(1,1),
-    apepaterno NVARCHAR(100),
-    apematerno NVARCHAR(100),
-    nombre NVARCHAR(100),
-    direccion NVARCHAR(255),
-    fechadeingreso DATE
-);
-
-CREATE TABLE usuarios (
-    idusuario INT PRIMARY KEY IDENTITY(1,1),
-    correo NVARCHAR(150),
-    password NVARCHAR(150),
-    tipo NVARCHAR(10) -- 'interno' o 'externo'
-);
-
-CREATE TABLE noticias (
-    idnoticia INT PRIMARY KEY IDENTITY(1,1),
-    titulo NVARCHAR(255),
-    contenido NVARCHAR(MAX),
-    idpersonal INT FOREIGN KEY REFERENCES personal(idpersonal),
-    fechapublicacion DATETIME DEFAULT GETDATE()
-);
-
-CREATE TABLE comentarios (
-    idcomentario INT PRIMARY KEY IDENTITY(1,1),
-    idnoticia INT FOREIGN KEY REFERENCES noticias(idnoticia),
-    idusuario INT FOREIGN KEY REFERENCES usuarios(idusuario),
-    contenido NVARCHAR(MAX),
-    fecha_hora DATETIME DEFAULT GETDATE(),
-    idcomentario_respuesta INT NULL -- para respuestas a comentarios
-);
-
